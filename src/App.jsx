@@ -11,15 +11,15 @@ function App() {
           Co-Narrate
         </h1>
       </header>
-      <main className="flex flex-col xl:flex-row flex-1 w-full max-w-8xl mx-auto p-4 gap-4">
-        <div className="w-full xl:w-3/4">
+      {/* Change breakpoint to min-width 800px using custom breakpoint */}
+      <main className="flex flex-col min-[800px]:flex-row flex-1 w-full max-w-7xl mx-auto p-4 gap-4">
+        <div className="w-full min-[800px]:w-3/4">
           <PictureGrid />
         </div>
-        <div className="w-full xl:w-1/4">
+        <div className="w-full min-[800px]:w-1/4">
           <SpeakMatchComponent />
         </div>
       </main>
-
     </div>
   )
 }

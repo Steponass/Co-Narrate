@@ -72,7 +72,7 @@ export default function PictureGrid() {
 
     return (
         <section className="h-full">
-            <div className="w-full p-2 sm:p-3 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3">
+            <div className="w-full p-2 sm:p-3 grid grid-cols-2 min-[1000px]:grid-cols-4 gap-2 sm:gap-3">
                 {Array(8).fill(0).map((_, index) => (
                     <div
                         key={index}
