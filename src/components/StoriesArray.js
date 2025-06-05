@@ -1,0 +1,15 @@
+export const storyStarters = [
+  "A mysterious package arrives at midnight with no return address.",
+  "The library books are rearranging themselves every night.",
+  "The city's statues are disappearing one by one.",
+  "The stars rearrange themselves into a message.",
+  "An elevator button takes you to an unknown floor.",
+  "It wasn’t human. Not anymore.",
+  "A loud bang echoed across the sky, but no one could find the source.",
+  "The lights in the street flickered, then everything went black.",
+  "A plane landed at the airport with no crew and no passengers.",
+  "A new planet appeared in the sky, visible even during the day.",
+  "A coded message was discovered in the city’s oldest monument.",
+  "Something massive moved beneath the frozen lake.",
+  "The news anchor paused, then dropped the mic and ran.",
+];
