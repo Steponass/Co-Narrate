@@ -54,7 +54,7 @@ export default [
     category: "Storytelling",
     function: "Group III",
     targetPhrases1: [
-      "It seemed like an ordinary day until…",
+      "It seemed like an ordinary day",
       "Out of nowhere,",
       "Out of the blue,"
     ],

@@ -90,7 +90,7 @@ const SpeakMatchComponent = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-white p-3 sm:p-4 gap-3 sm:gap-4 shadow rounded">
+    <div className="h-full flex min-w-fit flex-col bg-white p-3 sm:p-4 gap-3 sm:gap-4 shadow rounded">
       <h3 className="text-base sm:text-lg font-semibold mb-2">Select a Category</h3>
       <select
         value={selectedId}
