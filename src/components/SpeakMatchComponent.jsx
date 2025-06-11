@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-import PhrasesArray from "./PhrasesArray";
+import PhrasesArray from "../data/PhrasesArray";
 
-// Utility to flatten all targetPhrases1-4 into a single array
+// Flatten all targetPhrases1-4 into a single array
 function getTargetPhrases(item) {
   const phrases = [];
   for (let i = 1; i <= 4; i++) {
@@ -14,10 +14,10 @@ function getTargetPhrases(item) {
   return phrases;
 }
 
-// Normalize text for matching (update to handle ellipsis)
+// Normalize text for matching 
 function normalize(text) {
   return text
-    .replace(/[.,…#!$%^&*;:{}=\-_`~()''"]/g, "") // Added ellipsis character
+    .replace(/[.,…#!$%^&*;:{}=\-_`~()''"]/g, "")
     .toLowerCase()
     .trim();
 }
@@ -34,7 +34,7 @@ const SpeakMatchComponent = () => {
     selectedItem ? getTargetPhrases(selectedItem) : []
     , [selectedItem]);
 
-  // Create a useMemo for all phrases across categories
+
   const allPhrasesMap = useMemo(() => {
     const map = new Map();
     PhrasesArray.forEach(item => {
@@ -47,14 +47,13 @@ const SpeakMatchComponent = () => {
       });
     });
     return map;
-  }, []); // Empty dependency array as PhrasesArray is static
+  }, []);
 
   // Match phrases in transcript
   useEffect(() => {
     if (!transcript) return;
     const cleanTranscript = normalize(transcript);
 
-    // Check all phrases against transcript
     allPhrasesMap.forEach(({ originalPhrase, categoryId }, normalizedPhrase) => {
       if (cleanTranscript.includes(normalizedPhrase)) {
         setMatchedByCategory(prev => ({
@@ -70,22 +69,33 @@ const SpeakMatchComponent = () => {
   }
 
   const toggleListening = () => {
-    console.log('Toggle listening clicked, current state:', listening);
+
     try {
       if (listening) {
-        console.log('Attempting to stop listening...');
-        console.log('SpeechRecognition object:', SpeechRecognition);
-        console.log('stopListening method exists:', typeof SpeechRecognition.stopListening === 'function');
         SpeechRecognition.stopListening();
-        console.log('Stop listening called successfully');
       } else {
-        console.log('Attempting to start listening...');
         SpeechRecognition.startListening({ continuous: true, lang: "en-US", interimResults: true })
-          .then(() => console.log('Successfully started listening'))
+          .then(() => console.log('Microphone Listening'))
           .catch(error => console.error('Error starting speech recognition:', error));
       }
     } catch (error) {
       console.error('Error in toggleListening:', error);
+    }
+  };
+
+  const handleReset = async () => {
+    try {
+      // Stop microphone first
+      if (listening) {
+        await SpeechRecognition.stopListening();
+      }
+      // Reset all states
+      resetTranscript();
+      setMatchedByCategory({});
+      // Close dialog
+      dialogRef.current?.close();
+    } catch (error) {
+      console.error('Error during reset:', error);
     }
   };
 
@@ -135,7 +145,7 @@ const SpeakMatchComponent = () => {
             key={idx}
             className={`flex items-center gap-2 text-sm sm:text-base xl:text-lg 
                 ${matchedByCategory[selectedId]?.includes(phrase)
-                ? "text-green-600 font-bold line-through"
+                ? "text-green-600 line-through"
                 : "text-black"
               }${(idx + 1) % 6 === 0 ? " mb-3" : ""}`}
           >
@@ -167,7 +177,7 @@ const SpeakMatchComponent = () => {
       >
         <h3 className="text-lg font-semibold mb-4">Confirm Reset</h3>
         <p className="mb-6 text-gray-600">
-          Are you sure you want to reset? This will clear all matched phrases and the transcript.
+          This will clear all matched phrases and stop the microphone.
         </p>
         <div className="flex justify-end gap-3">
           <button
@@ -177,14 +187,10 @@ const SpeakMatchComponent = () => {
             Cancel
           </button>
           <button
-            onClick={() => {
-              resetTranscript();
-              setMatchedByCategory({});  // Clears all categories
-              dialogRef.current?.close();
-            }}
+            onClick={handleReset}
             className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition"
           >
-            Reset All Categories
+            Reset All Phrases
           </button>
         </div>
       </dialog>

@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { unsplashApi } from "./utils/unsplash";
-import { storyStarters } from "./StoriesArray";
+import { useState, useEffect, Suspense } from "react";
+import { unsplashApi } from "../utils/unsplash";
+import StoryStarters from "./StoryStarters";
 
 export default function PictureGrid() {
     const [storyImages, setStoryImages] = useState([]);
@@ -8,7 +8,6 @@ export default function PictureGrid() {
     const [usedImages, setUsedImages] = useState(new Set());
     const [cooldownActive, setCooldownActive] = useState(false);
     const [cooldownTime, setCooldownTime] = useState(15);
-    const [currentStarter, setCurrentStarter] = useState("");
 
 
     const UNSPLASH_TOPICS = {
@@ -65,14 +64,10 @@ export default function PictureGrid() {
         }
     };
 
-    const generateStoryStarter = () => {
-        const randomIndex = Math.floor(Math.random() * storyStarters.length);
-        setCurrentStarter(storyStarters[randomIndex]);
-    };
-
     return (
         <section className="h-full">
             <div className="w-full p-2 sm:p-3 grid grid-cols-2 min-[1000px]:grid-cols-4 gap-2 sm:gap-3">
+                <Suspense fallback={<div className="col-span-2 min-[1000px]:col-span-4 flex items-center justify-center h-32">Loading images...</div>}>
                 {Array(8).fill(0).map((_, index) => (
                     <div
                         key={index}
@@ -118,6 +113,7 @@ export default function PictureGrid() {
                         )}
                     </div>
                 ))}
+                </Suspense>
 
                 <button
                     onClick={handleLoadImages}
@@ -128,16 +124,8 @@ export default function PictureGrid() {
                         cooldownActive ? `Wait ${cooldownTime}s` :
                             'Load Images'}
                 </button>
+                <StoryStarters />
 
-                <button
-                    onClick={generateStoryStarter}
-                    className="mt-2 sm:mt-4 px-3 py-2 sm:px-4 sm:py-2 hover:brightness-130 bg-blue-600 text-white text-sm sm:text-base rounded"
-                >
-                    Random story starter
-                </button>
-                <div className="col-span-2 mt-2 sm:mt-4 p-2 bg-gray-100 rounded text-sm sm:text-base">
-                    {currentStarter || "Click for a story prompt"}
-                </div>
             </div>
 
         </section>
