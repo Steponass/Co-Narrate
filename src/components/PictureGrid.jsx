@@ -13,9 +13,7 @@ export default function PictureGrid() {
     const UNSPLASH_TOPICS = {
         PEOPLE: 'towJZFskpGg',
         FILM: 'hmenvQhUmxM',
-        FOOD_DRINK: 'xjPR4hlkBGA',
         BUSINESS_WORK: 'aeu6rL-j6ew',
-        ICONS: 'FkTvWj0W5bo',
         SPORTS: 'Bn-DjrcBrwo',
     };
 
@@ -44,9 +42,7 @@ export default function PictureGrid() {
                     [
                         UNSPLASH_TOPICS.PEOPLE,
                         UNSPLASH_TOPICS.FILM,
-                        UNSPLASH_TOPICS.FOOD_DRINK,
                         UNSPLASH_TOPICS.BUSINESS_WORK,
-                        UNSPLASH_TOPICS.ICONS,
                         UNSPLASH_TOPICS.SPORTS,
                     ]
             });
@@ -67,67 +63,78 @@ export default function PictureGrid() {
     return (
         <section className="h-full">
             <div className="w-full p-2 sm:p-3 grid grid-cols-2 min-[1000px]:grid-cols-4 gap-2 sm:gap-3">
-                <Suspense fallback={<div className="col-span-2 min-[1000px]:col-span-4 flex items-center justify-center h-32">Loading images...</div>}>
-                {Array(8).fill(0).map((_, index) => (
-                    <div
-                        key={index}
-                        onClick={() => storyImages[index] && setUsedImages(prev => {
-                            const newSet = new Set(prev);
-                            if (newSet.has(index)) {
-                                newSet.delete(index);
-                            } else {
-                                newSet.add(index);
-                            }
-                            return newSet;
-                        })}
-                        className={`bg-gray-200 rounded text-gray-500 text-xs sm:text-sm flex items-center justify-center aspect-square overflow-hidden relative cursor-pointer 
-                            ${storyImages[index] ? 'hover:brightness-75' : ''}`}
-                    >
-                        {storyImages[index] ? (
-                            <>
-                                <img
-                                    src={storyImages[index].urls.small}
-                                    alt={storyImages[index].description || 'Unsplash photo'}
-                                    className="object-cover w-full h-full"
-                                />
-                                {usedImages.has(index) && (
-                                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                                        <svg
-                                            className="w-12 h-12 text-white"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M5 13l4 4L19 7"
-                                            />
-                                        </svg>
-                                    </div>
-                                )}
-                            </>
-                        ) : (
-                            <h3 className="animate-pulse-slow">Click "Load Images" below</h3>
-                        )}
+                <Suspense fallback={
+                    <div className="col-span-2 min-[1000px]:col-span-4 flex items-center justify-center h-32 
+                    text-gray-600 dark:text-gray-400">
+                        Loading images...
                     </div>
-                ))}
+                }>
+                    {Array(8).fill(0).map((_, index) => (
+                        <div
+                            key={index}
+                            onClick={() => storyImages[index] && setUsedImages(prev => {
+                                const newSet = new Set(prev);
+                                if (newSet.has(index)) {
+                                    newSet.delete(index);
+                                } else {
+                                    newSet.add(index);
+                                }
+                                return newSet;
+                            })}
+                            className={`bg-gray-200 dark:bg-gray-700 rounded 
+                            text-gray-500 dark:text-gray-400 
+                            text-xs sm:text-sm flex items-center justify-center 
+                            aspect-square overflow-hidden relative cursor-pointer 
+                            ${storyImages[index] ? 'hover:brightness-75' : ''}`}
+                        >
+                            {storyImages[index] ? (
+                                <>
+                                    <img
+                                        src={storyImages[index].urls.small}
+                                        alt={storyImages[index].description || 'Unsplash photo'}
+                                        className="object-cover w-full h-full"
+                                    />
+                                    {usedImages.has(index) && (
+                                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                            <svg
+                                                className="w-12 h-12 text-white"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M5 13l4 4L19 7"
+                                                />
+                                            </svg>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <h3 className="animate-pulse-slow dark:text-gray-400">
+                                    Click "Load Images" below
+                                </h3>
+                            )}
+                        </div>
+                    ))}
                 </Suspense>
 
                 <button
                     onClick={handleLoadImages}
                     disabled={isLoadingImages || cooldownActive}
-                    className="mt-2 sm:mt-4 px-3 py-2 sm:px-4 sm:py-2 hover:brightness-130 bg-emerald-700 text-white text-sm sm:text-base rounded disabled:opacity-50"
+                    className="mt-2 sm:mt-4 px-3 py-2 sm:px-4 sm:py-2 
+                    hover:brightness-130 bg-emerald-700 dark:bg-emerald-600 
+                    text-white text-sm sm:text-base rounded 
+                    disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {isLoadingImages ? 'Loading...' :
                         cooldownActive ? `Wait ${cooldownTime}s` :
                             'Load Images'}
                 </button>
                 <StoryStarters />
-
             </div>
-
         </section>
     );
 };

@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+@layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+}
+
+
 .animate-pulse-slow {
     animation: pulse 3s ease-in-out infinite;
 }

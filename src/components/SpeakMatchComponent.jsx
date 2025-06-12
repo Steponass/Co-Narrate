@@ -100,15 +100,24 @@ const SpeakMatchComponent = () => {
   };
 
   return (
-    <div className="h-full flex min-w-fit flex-col bg-white p-3 sm:p-4 gap-3 sm:gap-4 shadow rounded">
-      <h3 className="text-base sm:text-lg font-semibold mb-2">Select a Category</h3>
+    <div className="h-fit flex min-w-fit flex-col 
+        bg-white dark:bg-gray-800 
+        p-3 sm:p-4 gap-3 sm:gap-4 shadow rounded">
+      <h3 className="text-base sm:text-lg font-semibold mb-2 
+            text-gray-900 dark:text-gray-100">
+        Select a Category
+      </h3>
       <select
         value={selectedId}
         onChange={e => {
           setSelectedId(e.target.value);
           resetTranscript();
         }}
-        className="mb-2 p-2 text-sm sm:text-base rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        className="mb-2 p-2 text-sm sm:text-base rounded 
+                border border-gray-300 dark:border-gray-600 
+                bg-white dark:bg-gray-700 
+                text-gray-900 dark:text-gray-100
+                focus:outline-none focus:ring-2 focus:ring-emerald-500"
       >
         {PhrasesArray.map(item => (
           <option key={item.id} value={item.id}>
@@ -138,21 +147,25 @@ const SpeakMatchComponent = () => {
         </button>
       </div>
 
-      <h4 className="font-semibold mb-1 text-sm sm:text-base">Phrases to Match:</h4>
-      <ul className="mb-2 grid grid-cols-2 xl:grid-cols-1 gap-x-4 gap-y-1 overflow-y-auto max-h-[60vh] xl:max-h-[70vh]">
+      <h4 className="font-semibold mb-1 text-sm sm:text-base 
+            text-gray-900 dark:text-gray-100">
+        Phrases to Match:
+      </h4>
+      <ul className="mb-2 grid grid-cols-2 xl:grid-cols-1 gap-x-4 gap-y-1 
+            overflow-y-auto max-h-[60vh] xl:max-h-[70vh]">
         {phrases.map((phrase, idx) => (
           <li
             key={idx}
             className={`flex items-center gap-2 text-sm sm:text-base xl:text-lg 
-                ${matchedByCategory[selectedId]?.includes(phrase)
-                ? "text-green-600 line-through"
-                : "text-black"
+                        ${matchedByCategory[selectedId]?.includes(phrase)
+                ? "text-green-600 dark:text-green-400 line-through"
+                : "text-gray-900 dark:text-gray-100"
               }${(idx + 1) % 6 === 0 ? " mb-3" : ""}`}
           >
             <input
               type="checkbox"
               checked={matchedByCategory[selectedId]?.includes(phrase) || false}
-              className="accent-emerald-600"
+              className="accent-emerald-600 dark:accent-emerald-400"
               onChange={e => {
                 setMatchedByCategory(prev => {
                   const current = prev[selectedId] || [];
@@ -173,10 +186,15 @@ const SpeakMatchComponent = () => {
 
       <dialog
         ref={dialogRef}
-        className="fixed inset-0 w-11/12 sm:max-w-md xl:max-w-lg m-auto p-4 sm:p-6 rounded-lg shadow-lg backdrop:bg-black/50"
+        className="fixed inset-0 w-11/12 sm:max-w-md xl:max-w-lg m-auto p-4 sm:p-6 
+                rounded-lg shadow-lg backdrop:bg-black/50
+                bg-white dark:bg-gray-800"
       >
-        <h3 className="text-lg font-semibold mb-4">Confirm Reset</h3>
-        <p className="mb-6 text-gray-600">
+        <h3 className="text-lg font-semibold mb-4 
+                text-gray-900 dark:text-gray-100">
+          Confirm Reset
+        </h3>
+        <p className="mb-6 text-gray-600 dark:text-gray-400">
           This will clear all matched phrases and stop the microphone.
         </p>
         <div className="flex justify-end gap-3">
