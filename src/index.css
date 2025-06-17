@@ -7,6 +7,15 @@
   }
 }
 
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  pointer-events: none;
+}
+
 
 .animate-pulse-slow {
     animation: pulse 3s ease-in-out infinite;

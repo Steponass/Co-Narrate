@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { unsplashApi } from "../utils/unsplash";
 import StoryStarters from "./StoryStarters";
 
@@ -8,7 +8,6 @@ export default function PictureGrid() {
     const [usedImages, setUsedImages] = useState(new Set());
     const [cooldownActive, setCooldownActive] = useState(false);
     const [cooldownTime, setCooldownTime] = useState(15);
-
 
     const UNSPLASH_TOPICS = {
         PEOPLE: 'towJZFskpGg',
@@ -35,6 +34,7 @@ export default function PictureGrid() {
         setUsedImages(new Set());
 
         try {
+            // Unsplash API call
             const result = await unsplashApi.photos.getRandom({
                 orientation: 'landscape',
                 count: 8,
@@ -63,12 +63,6 @@ export default function PictureGrid() {
     return (
         <section className="h-full">
             <div className="w-full p-2 sm:p-3 grid grid-cols-2 min-[1000px]:grid-cols-4 gap-2 sm:gap-3">
-                <Suspense fallback={
-                    <div className="col-span-2 min-[1000px]:col-span-4 flex items-center justify-center h-32 
-                    text-gray-600 dark:text-gray-400">
-                        Loading images...
-                    </div>
-                }>
                     {Array(8).fill(0).map((_, index) => (
                         <div
                             key={index}
@@ -119,7 +113,6 @@ export default function PictureGrid() {
                             )}
                         </div>
                     ))}
-                </Suspense>
 
                 <button
                     onClick={handleLoadImages}

@@ -21,7 +21,7 @@ function App() {
           <div className="w-full min-[800px]:w-3/4">
             <PictureGrid />
           </div>
-          <div className="w-full min-[800px]:w-1/4">
+          <div className="w-full min-[800px]:w-1/4 min-w-[360px]">
             <SpeakMatchComponent />
           </div>
         </main>
