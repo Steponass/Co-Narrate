@@ -8,7 +8,7 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-black dark:text-white">
-        <header className="w-full max-w-7xl m-auto px-[1.5rem] py-4 sm:py-6 bg-white dark:bg-gray-900 shadow flex items-center justify-between">
+        <header className="w-full px-[1.5rem] py-4 sm:py-6 bg-white dark:bg-gray-900 shadow flex items-center justify-between">
           <h1 className="text-2xl sm:text-3xl xl:text-4xl font-extrabold tracking-tight text-emerald-800 dark:text-emerald-400 text-center">
             Co-Narrate
           </h1>
@@ -16,15 +16,20 @@ function App() {
             <DarkModeToggle />
           </div>
         </header>
-        {/* Change breakpoint to min-width 800px using custom breakpoint */}
-        <main className="flex flex-col min-[800px]:flex-row flex-1 w-full max-w-7xl mx-auto p-4 gap-4 | dark:bg-gray-900">
-          <div className="w-full min-[800px]:w-3/4">
+
+        <main className="h-full flex flex-col min-[800px]:flex-row w-full p-3 gap-3 dark:bg-gray-900  max-w-6xl m-auto ">
+          <div>
             <PictureGrid />
           </div>
-          <div className="w-full min-[800px]:w-1/4 min-w-[360px]">
+          <div>
             <SpeakMatchComponent />
           </div>
         </main>
+
+        <footer className="min-h-12 bg-white dark:bg-gray-900 shadow | p-2 | flex items-center justify-between">
+          <p>Need help? <strong>Too bad.</strong></p>
+          <p>Designed & built by <a href="https://www.linkedin.com/in/steponasd/">S.D.</a></p>
+        </footer>
       </div>
     </ThemeProvider>
   );

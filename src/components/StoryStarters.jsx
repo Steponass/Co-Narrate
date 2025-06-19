@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { storyStarters } from "../data/StoriesArray";
 
-export default function StoryStarters() {
+function StoryStarters() {
 
     const [currentStarter, setCurrentStarter] = useState("");
 
@@ -14,13 +14,13 @@ export default function StoryStarters() {
         <>
             <button
                 onClick={generateStoryStarter}
-                className="min-h-16 mt-2 sm:mt-4 px-3 py-2 sm:px-4 sm:py-2 
+                className="min-h-16 mt-2 
                     hover:brightness-130 bg-blue-600 dark:bg-blue-700 
                     text-white text-sm sm:text-base rounded"
             >
                 Random story starter
             </button>
-            <div className="col-span-2 flex-1 mt-2 sm:mt-4 p-2 
+            <div className="mt-2 sm:mt-2 p-2 min-h-22
                 bg-gray-100 dark:bg-gray-800 
                 text-gray-900 dark:text-gray-100 
                 rounded text-sm sm:text-base"
@@ -30,3 +30,5 @@ export default function StoryStarters() {
         </>
     )
 }
+
+export default memo(StoryStarters);

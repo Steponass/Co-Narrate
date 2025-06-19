@@ -11,7 +11,7 @@ export default function DarkModeToggle() {
         text-gray-800 dark:text-gray-200"
       title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
-      <span className="transition-transform duration-300 inline-block">
+      <span className="transition-transform duration-600 inline-block">
         {darkMode ? '☀️' : '🌙'}
       </span>
     </button>

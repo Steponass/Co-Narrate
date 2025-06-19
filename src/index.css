@@ -16,7 +16,12 @@ img {
   pointer-events: none;
 }
 
-
 .animate-pulse-slow {
-    animation: pulse 3s ease-in-out infinite;
+    animation: pulse 5s ease-in-out infinite;
+}
+
+.phrase_function_vertical {
+  writing-mode: vertical-rl;
+  text-orientation: sideways-right;
+  transform: rotate(180deg);
 }
