@@ -1,35 +1,40 @@
-import './App.css';
-import PictureGrid from './components/PictureGrid';
-import SpeakMatchComponent from './components/SpeakMatchComponent';
-import { ThemeProvider } from './context/ThemeContext';
-import DarkModeToggle from './components/DarkModeToggle';
+import "./App.css";
+import PictureGrid, { PictureGridActions } from "./components/PictureGrid";
+import SpeakMatchComponent from "./components/SpeakMatchComponent";
+import { ThemeProvider } from "./context/ThemeContext";
+import DarkModeToggle from "./components/DarkModeToggle";
+import Footer from "./components/Footer";
+import React from "react";
 
 function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-black dark:text-white">
-        <header className="w-full px-[1.5rem] py-4 sm:py-6 bg-white dark:bg-gray-900 shadow flex items-center justify-between">
-          <h1 className="text-2xl sm:text-3xl xl:text-4xl font-extrabold tracking-tight text-emerald-800 dark:text-emerald-400 text-center">
+        <header className="w-full px-6 py-4 flex items-center justify-between bg-white dark:bg-gray-900 shadow">
+          <h1 className="text-2xl sm:text-3xl xl:text-4xl font-extrabold tracking-tight text-emerald-800 dark:text-emerald-400">
             Co-Narrate
           </h1>
-          <div className="flex justify-center items-center h-full">
+          <div className="flex items-center justify-center">
             <DarkModeToggle />
           </div>
         </header>
 
-        <main className="h-full flex flex-col min-[800px]:flex-row w-full p-3 gap-3 dark:bg-gray-900  max-w-6xl m-auto ">
-          <div>
-            <PictureGrid />
+        <main className="flex-1 px-4 py-2 flex flex-col xl:flex-row gap-4 bg-white dark:bg-gray-900">
+          <div className="flex-1 flex flex-col xl:flex-[2]">
+            <h2 className="p-2 text-xl font-bold text-gray-900 dark:text-white">Story Images</h2>
+            <div className="flex-1">
+              <PictureGrid />
+            </div>
           </div>
-          <div>
-            <SpeakMatchComponent />
+          <div className="w-full flex flex-col xl:w-86 ">
+            <h2 className="p-2 text-xl font-bold text-gray-900 dark:text-white">Speak & Match</h2>
+            <div className="flex-1">
+              <SpeakMatchComponent />
+            </div>
           </div>
         </main>
 
-        <footer className="min-h-12 bg-white dark:bg-gray-900 shadow | p-2 | flex items-center justify-between">
-          <p>Need help? <strong>Too bad.</strong></p>
-          <p>Designed & built by <a href="https://www.linkedin.com/in/steponasd/">S.D.</a></p>
-        </footer>
+        <Footer />
       </div>
     </ThemeProvider>
   );
