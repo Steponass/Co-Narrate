@@ -158,7 +158,7 @@ const SpeakMatchComponent = () => {
             return groups;
           }, {})
         ).map(([functionName, functionPhrases]) => (
-          <div key={functionName} className="flex flex-col gap-2 sm:flex-row sm:items-start">
+          <div key={functionName} className="flex gap-2">
             <div className="flex items-center">
               <span className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide phrase_function_vertical">
                 {functionName}
