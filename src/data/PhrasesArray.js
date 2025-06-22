@@ -6,7 +6,7 @@ export default [
     targetPhrases1: {
       function: "Intro",
       phrases: [
-        "It was a day like any other…",
+        "Once upon a time, there was…",
         "It all began when…",
         "Our story begins with…"
       ]
@@ -23,16 +23,16 @@ export default [
       function: "Twist",
       phrases: [
         "Strangely enough,",
-        "Against all odds…",
+        "Suddenly,",
         "Nobody saw it coming…"
       ]
     },
     targetPhrases4: {
-      function: "Tension",
+      function: "End",
       phrases: [
-        "Time was running out…",
-        "Just when things seemed calm…",
-        "With each passing moment…"
+        "Eventually,",
+        "All was calm once again.",
+        "From that point forward,"
       ]
     }
   },
@@ -41,11 +41,11 @@ export default [
     context: "Storytelling",
     category: "Group II",
     targetPhrases1: {
-      function: "Suspense",
+      function: "Intro",
       phrases: [
-        "Something wasn’t right…",
-        "It was quiet… too quiet.",
-        "It was the calm before the storm"
+        "Let me tell you a story.",
+        "It was a day like any other.",
+        "Things were going fine."
       ]
     },
     targetPhrases2: {
@@ -53,7 +53,15 @@ export default [
       phrases: [
         "Moments later…",
         "It wasn’t long before…",
-        "After a while, "
+        "Little by little, "
+      ]
+    },
+    targetPhrases4: {
+      function: "Drama",
+      phrases: [
+        "It was now or never.",
+        "Out of the blue",
+        "A choice had to be made."
       ]
     },
     targetPhrases3: {
@@ -61,15 +69,7 @@ export default [
       phrases: [
         "Everything clicked into place",
         "Suddenly, it all made sense",
-        "The truth hit hard"
-      ]
-    },
-    targetPhrases4: {
-      function: "Surprise",
-      phrases: [
-        "But then, out of nowhere…",
-        "Out of the blue",
-        "The unexpected happened"
+        "It turned out that…"
       ]
     }
   },
