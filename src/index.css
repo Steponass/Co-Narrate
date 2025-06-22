@@ -25,3 +25,10 @@ img {
   text-orientation: sideways-right;
   transform: rotate(180deg);
 }
+
+
+/* Custom Classes */
+
+.section-heading {
+  @apply py-1 text-xl font-bold text-gray-900 dark:text-white;
+}

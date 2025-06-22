@@ -11,10 +11,9 @@ function StoryStarters() {
 
   return (
     <>
-      <div className="flex items-center gap-2">
         <button
           onClick={generateStoryStarter}
-          className="flex-shrink-0 px-2 py-2
+          className="px-2 py-2 text-wrap
                     hover:brightness-130 bg-blue-600 dark:bg-blue-700 
                     text-white text-sm sm:text-base rounded"
         >
@@ -28,7 +27,6 @@ function StoryStarters() {
         >
           {currentStarter || "Need an idea? Click the blue button!"}
         </div>
-      </div>
     </>
   );
 }

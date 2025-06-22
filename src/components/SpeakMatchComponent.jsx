@@ -84,7 +84,7 @@ const SpeakMatchComponent = () => {
             setSelectedId(e.target.value);
             resetTranscript();
           }}
-          className="p-2 border rounded bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 sm:text-base"
+          className="p-2 border rounded bg-neutral-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 sm:text-base"
         >
           {PhrasesArray.map((item) => (
             <option key={item.id} value={item.id}>
@@ -99,7 +99,7 @@ const SpeakMatchComponent = () => {
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="p-1.5 border rounded bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="p-1.5 border rounded bg-neutral-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="en-US">EN-US</option>
           <option value="en-GB">EN-UK</option>
@@ -148,7 +148,7 @@ const SpeakMatchComponent = () => {
       </h4>
 
       {/* Phrases Display - 2 columns on mobile */}
-      <div className="flex-1 overflow-y-auto space-y-4">
+      <div className="space-y-4">
         {Object.entries(
           phrases.reduce((groups, phraseObj) => {
             if (!groups[phraseObj.function]) {
@@ -206,7 +206,7 @@ const SpeakMatchComponent = () => {
       {/* Reset Dialog */}
       <dialog
         ref={dialogRef}
-        className="fixed inset-0 w-11/12 max-w-md m-auto p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg backdrop:bg-black/50 sm:p-6 xl:max-w-lg"
+        className="fixed inset-0 w-11/12 max-w-md m-auto p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg shadow-lg backdrop:bg-black/50 sm:p-6 xl:max-w-lg"
       >
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Confirm Reset

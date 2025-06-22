@@ -1,5 +1,5 @@
 import "./App.css";
-import PictureGrid, { PictureGridActions } from "./components/PictureGrid";
+import PictureGrid from "./components/PictureGrid";
 import SpeakMatchComponent from "./components/SpeakMatchComponent";
 import { ThemeProvider } from "./context/ThemeContext";
 import DarkModeToggle from "./components/DarkModeToggle";
@@ -9,9 +9,9 @@ import React from "react";
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-black dark:text-white">
-        <header className="w-full px-6 py-4 flex items-center justify-between bg-white dark:bg-gray-900 shadow">
-          <h1 className="text-2xl sm:text-3xl xl:text-4xl font-extrabold tracking-tight text-emerald-800 dark:text-emerald-400">
+      <div className=" bg-neutral-50 dark:bg-gray-900 text-black dark:text-white">
+        <header className="w-full px-4 py-4 flex items-center justify-between bg-neutral-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+          <h1 className="text-2xl sm:text-3xl xl:text-4xl font-extrabold tracking-tight text-emerald-800 dark:text-emerald-500">
             Co-Narrate
           </h1>
           <div className="flex items-center justify-center">
@@ -19,18 +19,14 @@ function App() {
           </div>
         </header>
 
-        <main className="flex-1 px-4 py-2 flex flex-col xl:flex-row gap-4 bg-white dark:bg-gray-900">
-          <div className="flex-1 flex flex-col xl:flex-[2]">
-            <h2 className="p-2 text-xl font-bold text-gray-900 dark:text-white">Story Images</h2>
-            <div className="flex-1">
+        <main className="px-4 py-2 flex flex-col md:flex-row md:max-h-screen flex-wrap gap-4 bg-neutral-50 dark:bg-gray-900">
+          <div className="basis-[0] grow-[999]">
+            <h2 className="section-heading">Story Images</h2>
               <PictureGrid />
-            </div>
           </div>
-          <div className="w-full flex flex-col xl:w-86 ">
-            <h2 className="p-2 text-xl font-bold text-gray-900 dark:text-white">Speak & Match</h2>
-            <div className="flex-1">
+          <div className="basis-sm grow-1 | ">
+            <h2 className="section-heading">Speak & Match</h2>
               <SpeakMatchComponent />
-            </div>
           </div>
         </main>
 

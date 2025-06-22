@@ -2,31 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { unsplashApi } from "../utils/unsplash";
 import StoryStarters from "./StoryStarters";
 
-export function PictureGridActions({
-  isLoadingImages,
-  cooldownActive,
-  cooldownTime,
-  handleLoadImages,
-}) {
-  return (
-    <div className="flex flex-col gap-2 items-stretch mb-2 sm:flex-row">
-      <button
-        onClick={handleLoadImages}
-        disabled={isLoadingImages || cooldownActive}
-        className="px-3 py-2 rounded bg-emerald-700 dark:bg-emerald-600 text-sm text-white transition hover:brightness-130 disabled:opacity-50 disabled:cursor-not-allowed sm:px-4 sm:text-base"
-      >
-        {isLoadingImages
-          ? "Loading..."
-          : cooldownActive
-          ? `Wait ${cooldownTime}s`
-          : "Load Images"}
-      </button>
-      <div className="flex-1 flex items-center">
-        <StoryStarters />
-      </div>
-    </div>
-  );
-}
 
 export default function PictureGrid() {
   const [storyImages, setStoryImages] = useState([]);
@@ -92,9 +67,8 @@ export default function PictureGrid() {
   };
 
   return (
-    <section className="h-full p-3 flex flex-col bg-neutral-100 rounded">
-      {/* Image Grid - 3x3 with 16:9 aspect ratio */}
-      <div className="flex-1 grid grid-cols-3 gap-0.5 mb-4">
+    <section className="h-full flex flex-col bg-neutral-200 rounded">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-0.5 pb-4">
         {Array(9)
           .fill(0)
           .map((_, index) => (
@@ -112,7 +86,7 @@ export default function PictureGrid() {
                   return newSet;
                 })
               }
-              className={`aspect-video flex items-center justify-center overflow-hidden relative rounded bg-gray-200 dark:bg-gray-700 text-xs text-gray-500 dark:text-gray-400 cursor-pointer sm:text-sm ${
+              className={`aspect-video flex items-center justify-center overflow-hidden relative rounded bg-gray-100 dark:bg-gray-700 text-xs text-gray-500 dark:text-gray-400 cursor-pointer sm:text-sm ${
                 storyImages[index] ? "hover:brightness-50" : ""
               }`}
             >
@@ -151,7 +125,7 @@ export default function PictureGrid() {
       </div>
 
       {/* Controls */}
-      <div className="flex flex-col gap-2 items-start sm:flex-row sm:items-center">
+      <div className="flex flex-col sm:flex-row gap-2">
         <button
           onClick={handleLoadImages}
           disabled={isLoadingImages || cooldownActive}
@@ -163,7 +137,7 @@ export default function PictureGrid() {
             ? `Wait ${cooldownTime}s`
             : "Load Images"}
         </button>
-        <div className="flex-1">
+        <div>
           <StoryStarters />
         </div>
       </div>
