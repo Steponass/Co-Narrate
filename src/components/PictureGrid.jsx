@@ -67,7 +67,7 @@ export default function PictureGrid() {
   };
 
   return (
-    <section className="h-full flex flex-col bg-neutral-100 rounded">
+    <section className="h-full flex flex-col bg-neutral-100  dark:bg-gray-800 rounded">
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-0.5 pb-4">
         {Array(9)
           .fill(0)
