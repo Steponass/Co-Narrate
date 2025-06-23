@@ -68,7 +68,7 @@ const SpeakMatchComponent = () => {
   };
 
   return (
-    <div className="h-full flex flex-col gap-3 p-3 bg-neutral-200 dark:bg-gray-800 rounded sm:gap-4">
+    <div className="h-full flex flex-col gap-3 p-3 bg-neutral-100 dark:bg-gray-800 rounded sm:gap-4">
       {/* Category Selection */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
         <label

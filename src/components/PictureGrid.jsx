@@ -67,7 +67,7 @@ export default function PictureGrid() {
   };
 
   return (
-    <section className="h-full flex flex-col bg-neutral-200 rounded">
+    <section className="h-full flex flex-col bg-neutral-100 rounded">
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-0.5 pb-4">
         {Array(9)
           .fill(0)
@@ -86,7 +86,7 @@ export default function PictureGrid() {
                   return newSet;
                 })
               }
-              className={`aspect-video flex items-center justify-center overflow-hidden relative rounded bg-gray-100 dark:bg-gray-700 text-xs text-gray-500 dark:text-gray-400 cursor-pointer sm:text-sm ${
+              className={`aspect-video flex items-center justify-center overflow-hidden relative rounded bg-gray-200 dark:bg-gray-700 text-xs text-gray-500 dark:text-gray-400 cursor-pointer sm:text-sm ${
                 storyImages[index] ? "hover:brightness-50" : ""
               }`}
             >
