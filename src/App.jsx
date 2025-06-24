@@ -9,7 +9,7 @@ import React from "react";
 function App() {
   return (
     <ThemeProvider>
-      <div className=" bg-neutral-50 dark:bg-gray-900 text-black dark:text-white">
+      <div className="min-h-screen flex flex-col bg-neutral-50 dark:bg-gray-900 text-black dark:text-white">
         <header className="w-full px-4 py-4 flex items-center justify-between bg-neutral-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
           <h1 className="text-2xl sm:text-3xl xl:text-4xl font-extrabold tracking-tight text-emerald-800 dark:text-emerald-500">
             Co-Narrate
@@ -19,14 +19,14 @@ function App() {
           </div>
         </header>
 
-        <main className="px-4 py-2 flex flex-col md:flex-row md:max-h-screen flex-wrap gap-4 bg-neutral-50 dark:bg-gray-900">
-          <div className="basis-[0] grow-[999]">
+        <main className="flex-1 px-4 py-3 flex flex-col md:flex-row gap-4 bg-neutral-50 dark:bg-gray-900 min-h-0">
+          <div className="basis-0 grow min-w-0 pb-4 sm:pb-0">
             <h2 className="section-heading">Story Images</h2>
-              <PictureGrid />
+            <PictureGrid />
           </div>
-          <div className="basis-sm grow-1 | ">
+          <div className="basis-sm grow-1 | sm:max-w-fit md:mr-0 md:ml-auto ">
             <h2 className="section-heading">Speak & Match</h2>
-              <SpeakMatchComponent />
+            <SpeakMatchComponent />
           </div>
         </main>
 

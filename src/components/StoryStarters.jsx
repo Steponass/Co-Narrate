@@ -11,22 +11,26 @@ function StoryStarters() {
 
   return (
     <>
-        <button
-          onClick={generateStoryStarter}
-          className="px-2 py-2 text-wrap
-                    hover:brightness-130 bg-blue-600 dark:bg-blue-700 
-                    text-white text-sm sm:text-base rounded"
-        >
-          Random story starter
-        </button>
-        <div
-          className="
-                p-2 bg-gray-100 dark:bg-gray-800 
-                text-gray-900 dark:text-gray-100 
-                rounded text-sm sm:text-base"
-        >
-          {currentStarter || "Need an idea? Click the blue button!"}
+      <div className="w-full sm:w-auto min-w-0">
+        <div className="">
+          <button
+            onClick={generateStoryStarter}
+            className="px-2 py-2 text-wrap w-full
+                      hover:brightness-130 bg-blue-600 dark:bg-blue-700 
+                      text-white text-sm sm:text-base rounded"
+          >
+            Random story starter
+          </button>
+          <div
+            className="
+                  p-2 bg-gray-100 dark:bg-gray-800 
+                  text-gray-900 dark:text-gray-100 
+                  rounded text-sm sm:text-base"
+          >
+            {currentStarter || "Need an idea? Click the blue button!"}
+          </div>
         </div>
+      </div>
     </>
   );
 }

@@ -7,6 +7,7 @@
   }
 }
 
+
 img {
   user-select: none;
   -webkit-user-select: none;
@@ -30,5 +31,5 @@ img {
 /* Custom Classes */
 
 .section-heading {
-  @apply py-1 text-xl font-bold text-gray-900 dark:text-white;
+  @apply py-2 text-xl font-bold text-gray-900 dark:text-white;
 }

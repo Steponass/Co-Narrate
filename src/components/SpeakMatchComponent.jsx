@@ -33,7 +33,12 @@ const SpeakMatchComponent = () => {
   usePhraseMatcher(transcript, allPhrasesMap, setMatchedByCategory);
 
   if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+    return (
+      <span>
+        Sorry! This browser doesn't support speech recognition 😔. It's best to
+        use a Chrome-based browser, like Google Chrome or Edge.
+      </span>
+    );
   }
 
   const toggleListening = () => {
@@ -68,7 +73,7 @@ const SpeakMatchComponent = () => {
   };
 
   return (
-    <div className="h-full flex flex-col gap-3 p-3 bg-neutral-100 dark:bg-gray-800 rounded sm:gap-4">
+    <div className="basis-auto grow-0 sm:max-w-fit sm:mr-0 sm:ml-auto min-w-0 h-full flex flex-col gap-3 p-3 bg-neutral-100 dark:bg-gray-800 rounded sm:gap-4">
       {/* Category Selection */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
         <label
@@ -118,9 +123,7 @@ const SpeakMatchComponent = () => {
 
         <span
           className={`w-6 h-6 inline-block ${
-            listening
-              ? "text-emerald-700 animate-pulse-slow"
-              : "text-gray-600"
+            listening ? "text-emerald-700 animate-pulse-slow" : "text-gray-600"
           }`}
           title={listening ? "Listening" : "Not listening"}
         >
