@@ -1,5 +1,5 @@
 import { useState, memo } from "react";
-import { storyStarters } from "../data/StoriesArray";
+import { storyStarters } from "./data/StoriesArray";
 
 function StoryStarters() {
   const [currentStarter, setCurrentStarter] = useState("");

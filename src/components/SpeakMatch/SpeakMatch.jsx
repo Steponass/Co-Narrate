@@ -2,15 +2,16 @@ import React, { useState, useRef, useMemo } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import PhrasesArray from "../data/PhrasesArray";
-import { getTargetPhrases } from "../hooks/useTargetPhrases";
-import { useAllPhrasesMap } from "../hooks/useAllPhrasesMap";
-import { usePhraseMatcher } from "../hooks/usePhraseMatcher";
+import PhrasesArray from "./data/PhrasesArray";
+import { getTargetPhrases } from "./hooks/useTargetPhrases";
+import { useAllPhrasesMap } from "./hooks/useAllPhrasesMap";
+import { usePhraseMatcher } from "./hooks/usePhraseMatcher";
+import ResetDialog from "./ResetDialog";
 
-const SpeakMatchComponent = () => {
+export default function SpeakMatch() {
   const [selectedId, setSelectedId] = useState(PhrasesArray[0]?.id || "");
   const [matchedByCategory, setMatchedByCategory] = useState({});
-  const dialogRef = useRef(null);
+  const ResetDialogRef = useRef(null);
   const [language, setLanguage] = useState("en-US");
   const {
     transcript,
@@ -18,6 +19,7 @@ const SpeakMatchComponent = () => {
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
+  const [ResetDialogOpen, setResetDialogOpen] = useState(false);
 
   // Get selected item and its phrases
   const selectedItem = PhrasesArray.find((item) => item.id === selectedId);
@@ -66,7 +68,7 @@ const SpeakMatchComponent = () => {
       }
       resetTranscript();
       setMatchedByCategory({});
-      dialogRef.current?.close();
+      setResetDialogOpen(false);
     } catch (error) {
       console.error("Error during reset:", error);
     }
@@ -139,7 +141,7 @@ const SpeakMatchComponent = () => {
         </span>
 
         <button
-          onClick={() => dialogRef.current?.showModal()}
+          onClick={() => setResetDialogOpen(true)}
           className="px-2 py-1.5 rounded bg-gray-200 text-sm text-gray-700 transition hover:bg-gray-300 sm:px-4 sm:text-base"
         >
           Reset
@@ -205,35 +207,13 @@ const SpeakMatchComponent = () => {
           </div>
         ))}
       </div>
-
-      {/* Reset Dialog */}
-      <dialog
-        ref={dialogRef}
-        className="fixed inset-0 w-11/12 max-w-md m-auto p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg shadow-lg backdrop:bg-black/50 sm:p-6 xl:max-w-lg"
-      >
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-          Confirm Reset
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">
-          This will clear all matched phrases and stop the microphone.
-        </p>
-        <div className="flex justify-end gap-3">
-          <button
-            onClick={() => dialogRef.current?.close()}
-            className="px-4 py-2 rounded bg-gray-200 text-gray-700 transition hover:bg-gray-300"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleReset}
-            className="px-4 py-2 rounded bg-red-500 text-white transition hover:bg-red-600"
-          >
-            Reset All Phrases
-          </button>
-        </div>
-      </dialog>
+      
+      <ResetDialog
+        ref={ResetDialogRef}
+        open={ResetDialogOpen}
+        onCancel={() => setResetDialogOpen(false)}
+        onConfirm={handleReset}
+      />
     </div>
   );
-};
-
-export default SpeakMatchComponent;
+}

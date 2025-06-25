@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { unsplashApi } from "../utils/unsplash";
-import StoryStarters from "./StoryStarters";
+import { unsplashApi } from "./utils/unsplash";
+import StoryStarters from "./StoryStarters/StoryStarters";
 
 export default function PictureGrid() {
   const [storyImages, setStoryImages] = useState([]);
