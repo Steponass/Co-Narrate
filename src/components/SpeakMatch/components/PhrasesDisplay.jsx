@@ -20,9 +20,9 @@ export default function PhrasesDisplay({
 
   return (
     <>
-      <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100 sm:text-base">
-        Phrases to Match:
-      </h4>
+      <h3 className="font-semibold text-sm text-gray-900 dark:text-gray-100 sm:text-lg">
+        Phrases to Match 🎯
+      </h3>
 
       <div className="space-y-4">
         {Object.entries(groupedPhrases).map(

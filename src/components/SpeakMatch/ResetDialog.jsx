@@ -13,7 +13,7 @@ const ResetDialog = forwardRef(function ResetDialog(
     <dialog
       ref={ref}
       open={open}
-      className="fixed inset-0 w-11/12 max-w-md m-auto p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg shadow-lg backdrop:bg-black/50 sm:p-6 xl:max-w-lg"
+      className="fixed inset-0 w-11/12 max-w-md m-auto p-4 bg-neutral-50 dark:bg-gray-800 rounded-lg shadow-2xl backdrop:bg-black/50 sm:p-6 xl:max-w-lg"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
         {title}

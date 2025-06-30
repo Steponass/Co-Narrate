@@ -14,21 +14,16 @@ export default function SpeechControls({
 }) {
   return (
     <div >
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex gap-2  justify-between flex-row sm:items-center sm:gap-4">
         <LanguageSelector value={language} onChange={onLanguageChange} />
-
         <MicrophoneSelector onDeviceChange={onDeviceChange} />
-
-
-
-        <ResetButton onClick={onReset} />
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 pt-2">
-
-            <ListeningButton listening={listening} onClick={onToggleListening} />
-            <ListeningIndicator listening={listening} />
-    </div>
+      <div className="flex gap-4 pt-4 flex-row items-center ">
+        <ListeningButton listening={listening} onClick={onToggleListening} />
+        <ListeningIndicator listening={listening} />
+        <ResetButton onClick={onReset} />
+      </div>
 
     </div>
   );
