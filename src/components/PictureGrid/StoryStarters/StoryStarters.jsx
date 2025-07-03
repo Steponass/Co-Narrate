@@ -15,7 +15,7 @@ function StoryStarters() {
         <div className="">
           <button
             onClick={generateStoryStarter}
-            className="px-2 py-2 text-wrap w-full
+            className="px-2 py-2 text-wrap w-full max-w-54
                       hover:brightness-130 bg-blue-600 dark:bg-blue-700 
                       text-white text-sm sm:text-base rounded"
           >

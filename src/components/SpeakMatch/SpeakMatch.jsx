@@ -9,6 +9,7 @@ import { usePhraseMatcher } from "./hooks/usePhraseMatcher";
 import PhrasesDisplay from "./components/PhrasesDisplay";
 import SpeechControls from "./components/SpeechControls";
 import ResetDialog from "./ResetDialog";
+import CategorySelector from "./components/CategorySelector";
 
 export default function SpeakMatch() {
   const [selectedId, setSelectedId] = useState(PhrasesArray[0]?.id || "");
@@ -82,32 +83,12 @@ export default function SpeakMatch() {
 
   return (
     <div className="basis-auto grow-0 sm:max-w-fit sm:mr-0 sm:ml-auto min-w-0 h-full flex flex-col gap-3 p-3 bg-neutral-100 dark:bg-gray-800 rounded sm:gap-4">
-      {/* Category Selection */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-        <label
-          htmlFor="category_selection"
-          className="text-base font-semibold text-gray-900 dark:text-gray-100 sm:text-lg"
-        >
-          Category
-        </label>
-        <select
-          name="category_selection"
-          value={selectedId}
-          onChange={(e) => {
-            setSelectedId(e.target.value);
-            resetTranscript();
-          }}
-          className="p-2 border rounded bg-neutral-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 sm:text-base"
-        >
-          {PhrasesArray.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.context}: {item.category}
-            </option>
-          ))}
-        </select>
-      </div>
 
-      {/* Speech Controls */}
+      <CategorySelector
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+        resetTranscript={resetTranscript} />
+
       <SpeechControls
         language={language}
         onLanguageChange={(e) => setLanguage(e.target.value)}
