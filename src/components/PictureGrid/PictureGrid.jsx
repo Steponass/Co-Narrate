@@ -31,14 +31,14 @@ export default function PictureGrid() {
   };
 
   return (
-    <section className="w-full flex flex-col bg-neutral-100 dark:bg-gray-800 rounded">
+    <section className="w-full h-full flex flex-col dark:bg-gray-800 rounded px-2">
       <ImageGrid
         storyImages={storyImages}
         usedImages={usedImages}
         onImageToggle={handleImageToggle}
       />
 
-      <div className="flex flex-col sm:flex-row gap-2">
+      <div className="flex flex-col sm:flex-row gap-4">
         <LoadImagesButton
           isLoading={isLoadingImages}
           cooldownActive={cooldownActive}

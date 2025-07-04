@@ -12,6 +12,7 @@ export default function PhraseItem({
   return (
     <div className="flex items-start gap-2">
       <input
+        id="check_box"
         type="checkbox"
         checked={isMatched}
         className="mt-1 accent-emerald-600 dark:accent-emerald-400"

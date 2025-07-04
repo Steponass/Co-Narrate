@@ -3,8 +3,8 @@ import PhrasesArray from "../data/PhrasesArray";
 export default function CategorySelector(selectedId, setSelectedId, resetTranscript) {
   
   return(
-    <div>
-          <div className="flex justify-between flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+    <div id="category_selector">
+          <div className="flex justify-between gap-2 flex-row sm:items-center sm:gap-4">
             <label
               htmlFor="category_selection"
               className="text-base font-semibold text-gray-900 dark:text-gray-100 sm:text-lg"

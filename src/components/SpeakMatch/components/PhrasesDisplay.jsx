@@ -19,8 +19,8 @@ export default function PhrasesDisplay({
   }, [phrases]);
 
   return (
-    <>
-      <h3 className="font-semibold text-sm text-gray-900 dark:text-gray-100 sm:text-lg">
+    <div id="phrases_display" className="py-4">
+      <h3 className="font-semibold text-sm text-gray-900 dark:text-gray-100 sm:text-lg pb-4">
         Phrases to Match 🎯
       </h3>
 
@@ -38,6 +38,6 @@ export default function PhrasesDisplay({
           )
         )}
       </div>
-    </>
+    </div>
   );
 }

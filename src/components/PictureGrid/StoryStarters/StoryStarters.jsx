@@ -11,11 +11,11 @@ function StoryStarters() {
 
   return (
     <>
-      <div className="w-full sm:w-auto min-w-0">
-        <div className="">
+      <div id="story_starters" className="w-full sm:w-auto min-w-0 ">
+        <div className="flex flex-row">
           <button
             onClick={generateStoryStarter}
-            className="px-2 py-2 text-wrap w-full max-w-54
+            className="px-3 py-2 text-wrap max-w-54
                       hover:brightness-130 bg-blue-600 dark:bg-blue-700 
                       text-white text-sm sm:text-base rounded"
           >

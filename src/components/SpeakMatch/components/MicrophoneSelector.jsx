@@ -75,6 +75,7 @@ export default function MicrophoneSelector({ onDeviceChange }) {
   }
 
   return (
+    <div id="microphone_selector">
     <select
       value={selectedDevice}
       onChange={(e) => handleDeviceSelect(e.target.value)}
@@ -87,5 +88,6 @@ export default function MicrophoneSelector({ onDeviceChange }) {
         </option>
       ))}
     </select>
+    </div>
   );
 }
