@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const guideSteps = [
   {
-    message: "This is a tool for a storytelling activity for English-language practice. Basically, students get 9 random images and have to tell a story using chosen target language (category)",
+    message: "This is a tool for a storytelling activity for English-language practice. Learners see 9 random images and try to tell a story using chosen target language",
   },
   {
     selector: "#picture-grid",
@@ -18,7 +18,7 @@ const guideSteps = [
   },
   {
     selector: "#speak-match",
-    message: "Take a minute to get to know this tool. It's awesome!",
+    message: "Take a minute to get to know this tool. It's… awesome! 😲",
   },
   {
     selector: ["#category_selector", "#phrases_display"],
@@ -26,7 +26,7 @@ const guideSteps = [
   },
   {
     selector: "#phrases_display",
-    message: "You will see 12 phrases you will try to use during the activity. Get familiar with them",
+    message: "You will see 12 phrases you will try to use during the activity. Get familiar with them!",
   },
   {
     selector: "#listening_button",
@@ -34,12 +34,12 @@ const guideSteps = [
   },
   {
     selector: "#phrases_display",
-    message: "Now your microphone will listen to you speak. If you use the listed phrases, it should get marked in green.",
+    message: "Now your microphone will listen to you speak. If you use a listed phrase, it should get marked in green.",
   },
 
   {
     selector: "#check_box",
-    message: "The microphone will catch all the phrases 🙄. When it happens, you can tick it off manually",
+    message: "The microphone won't catch every phrase 🙄. When that happens, you can tick it off manually",
   },
   {
     selector: "#reset_button",
@@ -51,7 +51,7 @@ const guideSteps = [
   },
   {
     selector: "#microphone_selector",
-    message: "…or try to speak clearer 😁. After all, this tool is to make you use these phrases, loudly and clearly.",
+    message: "…or try to speak clearer 😁. Have fun!",
   },
 ];
 

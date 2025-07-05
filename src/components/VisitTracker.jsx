@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FirstVisitDialog from "./Help/FirstVisitDialog";
 
-export default function VisitTracker() {
+export default function VisitTracker({setShowGuide}) {
   const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {
@@ -14,5 +14,5 @@ export default function VisitTracker() {
 
   if (!showDialog) return null;
 
-  return <FirstVisitDialog onClose={() => setShowDialog(false)} />;
+  return <FirstVisitDialog setShowGuide={setShowGuide} onClose={() => setShowDialog(false)} />;
 }

@@ -1,4 +1,4 @@
-export default function FirstVisitDialog({ onClose }) {
+export default function FirstVisitDialog({ setShowGuide, onClose }) {
   return (
     <div>
       <dialog open>
@@ -12,12 +12,15 @@ export default function FirstVisitDialog({ onClose }) {
             </p>
           </div>
           <div className="flex gap-6 justify-between">
-            <button
-              className="px-8 py-2 rounded bg-emerald-700 text-white font-semibold transition hover:brightness-120"
-              onClick={onClose}
-            >
-              Yeah
-            </button>
+<button
+  className="px-8 py-2 rounded bg-emerald-700 text-white font-semibold transition hover:brightness-120"
+  onClick={() => {
+    setShowGuide(true);
+    onClose();
+  }}
+>
+  Yeah
+</button>
             <button
               className="px-8 py-2 rounded bg-amber-400 text-black font-semibold transition hover:brightness-120"
               onClick={onClose}
