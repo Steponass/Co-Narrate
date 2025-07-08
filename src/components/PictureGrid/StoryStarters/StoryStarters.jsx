@@ -12,7 +12,7 @@ function StoryStarters() {
   return (
     <>
       <div id="story_starters" className="w-full sm:w-auto min-w-0 ">
-        <div className="flex flex-row">
+        <div className="flex flex-row gap-2">
           <button
             onClick={generateStoryStarter}
             className="px-3 py-2 text-wrap max-w-54
@@ -23,7 +23,7 @@ function StoryStarters() {
           </button>
           <div
             className="
-                  p-2 bg-gray-100 dark:bg-gray-800 
+                  p-2 bg-gray-100 dark:bg-gray-700 
                   text-gray-900 dark:text-gray-100 
                   rounded text-sm sm:text-base"
           >

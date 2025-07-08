@@ -1,59 +1,5 @@
 import { useState, useEffect } from "react";
-
-const guideSteps = [
-  {
-    message: "This is a tool for a storytelling activity for English-language practice. Learners see 9 random images and try to tell a story using chosen target language",
-  },
-  {
-    selector: "#picture-grid",
-    message: "Story Images section, where you view and select images for your story",
-  },
-  {
-    selector: "#load_images_btn",
-    message: "Select this button to load 9 random images",
-  },
-  {
-    selector: "#story_starters",
-    message: "Need inspiration to start a story? Select this button",
-  },
-  {
-    selector: "#speak-match",
-    message: "Take a minute to get to know this tool. It's… awesome! 😲",
-  },
-  {
-    selector: ["#category_selector", "#phrases_display"],
-    message: "Pick a category of phrases you plan to use",
-  },
-  {
-    selector: "#phrases_display",
-    message: "You will see 12 phrases you will try to use during the activity. Get familiar with them!",
-  },
-  {
-    selector: "#listening_button",
-    message: "When you're ready, select this button",
-  },
-  {
-    selector: "#phrases_display",
-    message: "Now your microphone will listen to you speak. If you use a listed phrase, it should get marked in green.",
-  },
-
-  {
-    selector: "#check_box",
-    message: "The microphone won't catch every phrase 🙄. When that happens, you can tick it off manually",
-  },
-  {
-    selector: "#reset_button",
-    message: "If you want to restart the task, this button will clear everything and stop the microphone",
-  },
-  {
-    selector: "#microphone_selector",
-    message: "If the tool is not catching anything of the phrases you speak, try to use a different input device…",
-  },
-  {
-    selector: "#microphone_selector",
-    message: "…or try to speak clearer 😁. Have fun!",
-  },
-];
+import { guideSteps } from "./GuideSteps";
 
 export default function GuideOverlay({ onClose }) {
   const [step, setStep] = useState(0);
@@ -74,7 +20,7 @@ export default function GuideOverlay({ onClose }) {
     if (step > 0) setStep(step - 1);
   };
 
-  // Support multiple selectors (array or string)
+  // Support multiple selectors (array or string) to highlight more than 1 item (not currently used, but hey, ya never know)
   const selectors = guideSteps[step].selector
     ? Array.isArray(guideSteps[step].selector)
       ? guideSteps[step].selector
@@ -92,7 +38,7 @@ export default function GuideOverlay({ onClose }) {
         left: rect.left - 8,
         width: rect.width + 16,
         height: rect.height + 16,
-        border: "3px solid #22c55e",
+        border: "3px solid #fb923c",
         borderRadius: "8px",
         pointerEvents: "none",
         zIndex: 50,
@@ -103,9 +49,8 @@ export default function GuideOverlay({ onClose }) {
 
   return (
     <div
-      className={`fixed inset-0 z-40 flex items-center justify-center transition-transform duration-300 ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-      }`}
+      className={`fixed inset-0 z-40 flex items-center justify-center transition-transform duration-300 ${visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+        }`}
       style={{ pointerEvents: "auto" }}
     >
       {highlights.map((style, idx) => (

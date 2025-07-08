@@ -31,7 +31,7 @@ export default function PictureGrid() {
   };
 
   return (
-    <section className="w-full h-full flex flex-col dark:bg-gray-800 rounded px-2">
+    <section className="w-full flex flex-col dark:bg-gray-800 rounded p-3">
       <ImageGrid
         storyImages={storyImages}
         usedImages={usedImages}
