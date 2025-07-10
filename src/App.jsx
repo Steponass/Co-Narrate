@@ -14,19 +14,19 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen flex flex-col bg-neutral-50 dark:bg-gray-900 text-black dark:text-white">
-        <Header  setShowGuide={setShowGuide} />
+        <Header/>
         <main className="flex-1 px-4 py-3 flex flex-col md:flex-row gap-4 bg-neutral-50 dark:bg-gray-900 min-h-0">
           <VisitTracker setShowGuide={setShowGuide}/>
           <div id="picture-grid" className="basis-0 grow min-w-0 max-sm:pb-4 shadow">
             <h2 className="section-heading px-3">Story Images</h2>
             <PictureGrid />
           </div>
-          <div id="speak-match" className="basis-sm grow-1 | sm:max-w-fit md:mr-0 md:ml-auto px-2 shadow">
+          <div id="speak-match" className="basis-sm grow-1 | md:w-full md:max-w-fit md:mr-0 md:ml-auto shadow">
             <h2 className="section-heading px-3">Speak & Match</h2>
             <SpeakMatch />
           </div>
         </main>
-        <Footer/>
+        <Footer setShowGuide={setShowGuide}/>
         {showGuide && <GuideOverlay onClose={() => setShowGuide(false)} />}
       </div>
     </ThemeProvider>

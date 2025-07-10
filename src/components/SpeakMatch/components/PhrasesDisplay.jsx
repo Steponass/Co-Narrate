@@ -24,7 +24,7 @@ export default function PhrasesDisplay({
         Phrases to Match 🎯
       </h3>
 
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 space-y-4">
         {Object.entries(groupedPhrases).map(
           ([functionName, functionPhrases]) => (
             <PhraseGroup

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { guideSteps } from "./GuideSteps";
 
 export default function GuideOverlay({ onClose }) {
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [highlights, setHighlights] = useState([]);
 
   useEffect(() => {
     // Trigger animation after mount
@@ -27,36 +28,68 @@ export default function GuideOverlay({ onClose }) {
       : [guideSteps[step].selector]
     : [];
 
-  const highlights = selectors
-    .map(sel => document.querySelector(sel))
-    .filter(Boolean)
-    .map(target => {
-      const rect = target.getBoundingClientRect();
-      return {
-        position: "fixed",
-        top: rect.top - 8,
-        left: rect.left - 8,
-        width: rect.width + 16,
-        height: rect.height + 16,
-        border: "3px solid #fb923c",
-        borderRadius: "8px",
-        pointerEvents: "none",
-        zIndex: 50,
-        boxShadow: "0 0 0 9999px rgba(0,0,0,0.5)",
-        transition: "all 0.3s",
-      };
+  // Function to recalculate highlights
+  const recalculateHighlights = useCallback(() => {
+    const newHighlights = selectors
+      .map((sel) => document.querySelector(sel))
+      .filter(Boolean)
+      .map((target) => {
+        const rect = target.getBoundingClientRect();
+        return {
+          position: "fixed",
+          top: rect.top - 8,
+          left: rect.left - 8,
+          width: rect.width + 16,
+          height: rect.height + 16,
+          border: "3px solid #fb923c",
+          borderRadius: "8px",
+          pointerEvents: "none",
+          zIndex: 50,
+          boxShadow: "0 0 0 9999px rgba(0,0,0,0.5)",
+          transition: "all 0.3s",
+        };
+      });
+    setHighlights(newHighlights);
+  }, [selectors]);
+
+  // Recalculate highlights on step/visible change, scroll, resize
+  useEffect(() => {
+    if (!visible) return;
+    recalculateHighlights();
+    window.addEventListener("scroll", recalculateHighlights, true);
+    window.addEventListener("resize", recalculateHighlights);
+    return () => {
+      window.removeEventListener("scroll", recalculateHighlights, true);
+      window.removeEventListener("resize", recalculateHighlights);
+    };
+  }, [recalculateHighlights, step, visible]);
+
+  useEffect(() => {
+    if (!visible) return;
+    selectors.forEach((sel) => {
+      const el = document.querySelector(sel);
+      if (el) {
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+      }
     });
+    // Optionally, you can add a small delay if the highlight overlay needs to animate in first
+  }, [selectors, step, visible]);
 
   return (
     <div
-      className={`fixed inset-0 z-40 flex items-center justify-center transition-transform duration-300 ${visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-        }`}
+      className={`fixed inset-0 z-40 flex items-center justify-center transition-transform duration-300 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+      }`}
       style={{ pointerEvents: "auto" }}
     >
       {highlights.map((style, idx) => (
         <div key={idx} style={style} />
       ))}
-      <div className="min-h-40 min-w-104 max-w-md flex flex-col justify-between flex-nowrap fixed bottom-12 left-1/2 -translate-x-1/2 z-50 bg-neutral-100 dark:bg-gray-800 p-4 rounded-lg shadow-xl">
+      <div className="min-h-40 min-w-90 max-w-md flex flex-col justify-between flex-nowrap fixed bottom-12 left-1/2 -translate-x-1/2 z-50 bg-neutral-100 dark:bg-gray-800 p-4 rounded-lg shadow-xl">
         <div>
           <p>{guideSteps[step].message}</p>
         </div>
@@ -79,7 +112,6 @@ export default function GuideOverlay({ onClose }) {
       <div
         className="fixed inset-0 z-30"
         style={{ background: "rgba(0,0,0,0.15)" }}
-        onClick={onClose}
       />
     </div>
   );

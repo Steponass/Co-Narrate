@@ -82,7 +82,7 @@ export default function SpeakMatch() {
   };
 
   return (
-    <div className="basis-auto grow-0 sm:max-w-fit sm:mr-0 sm:ml-auto min-w-0 flex flex-col gap-3 p-3 dark:bg-gray-800 rounded sm:gap-4">
+    <div className="basis-auto grow-0 sm:mr-0 sm:ml-auto min-w-0 flex flex-col gap-3 p-3 dark:bg-gray-800 rounded sm:gap-4">
 
       <CategorySelector
         selectedId={selectedId}
