@@ -19,13 +19,13 @@ export default function FirstVisitDialog({ setShowGuide, onClose }) {
     onClose();
   }}
 >
-  Yeah
+  Yes
 </button>
             <button
               className="px-8 py-2 rounded bg-amber-400 text-black font-semibold transition hover:brightness-120"
               onClick={onClose}
             >
-              Nah
+              No
             </button>
           </div>
         </div>

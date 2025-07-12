@@ -90,6 +90,11 @@ export default function GuideOverlay({ onClose }) {
         <div key={idx} style={style} />
       ))}
       <div className="min-h-40 min-w-90 max-w-md flex flex-col justify-between flex-nowrap fixed bottom-12 left-1/2 -translate-x-1/2 z-50 bg-neutral-100 dark:bg-gray-800 p-4 rounded-lg shadow-xl">
+                <div>
+                <span className="cursor-pointer float-right text-lg font-bold" 
+            onClick={onClose}>
+              &times;</span>
+              </div>
         <div>
           <p>{guideSteps[step].message}</p>
         </div>
