@@ -1,9 +1,9 @@
 
 export default function UsedOverlay() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+    <div className="absolute inset-0 flex items-center justify-center bg-neutral-800/70">
       <svg
-        className="w-4 h-4 text-white sm:w-6 sm:h-6 lg:w-8 lg:h-8"
+        className="w-6 h-6 text-white sm:w-8 sm:h-8 lg:w-12 lg:h-12"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"

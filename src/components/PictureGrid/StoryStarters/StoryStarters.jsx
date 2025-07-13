@@ -15,19 +15,19 @@ function StoryStarters() {
         <div className="flex flex-row gap-2">
           <button
             onClick={generateStoryStarter}
-            className="px-3 py-2 text-wrap max-w-54
-                      hover:brightness-130 bg-blue-600 dark:bg-blue-700 
-                      text-white text-sm sm:text-base rounded"
+            className="px-4 py-2 text-wrap max-w-54
+                      hover:bg-blue-600 bg-blue-700 dark:bg-blue-700 
+                      text-white transition-colors text-sm sm:text-base rounded"
           >
-            Random story starter
+            Story starter
           </button>
           <div
             className="
-                  p-2 bg-gray-100 dark:bg-gray-700 
+                  min-w-60 p-2 bg-gray-100 dark:bg-gray-700 
                   text-gray-900 dark:text-gray-100 
                   rounded text-sm sm:text-base"
           >
-            {currentStarter || "Need an idea? Click the blue button!"}
+            {currentStarter || ""}
           </div>
         </div>
       </div>

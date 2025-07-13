@@ -10,23 +10,23 @@ export default function PhraseItem({
     matchedByCategory[selectedId]?.includes(phrase.text) || false;
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2.5">
       <input
         id="check_box"
         type="checkbox"
         checked={isMatched}
-        className="mt-1 accent-emerald-600 dark:accent-emerald-400"
+        className=" accent-emerald-600 dark:accent-emerald-400 cursor-pointer"
         onChange={(e) => onToggle(phrase.text, e.target.checked)}
       />
-      <span
-        className={` leading-tight text-base xl:text-lg ${
+      <p
+        className={` leading-6 text-base xl:text-lg transition ${
           isMatched
-            ? "line-through text-green-600 dark:text-green-400"
+            ? "line-through text-emerald-700 dark:text-emerald-600"
             : "text-gray-900 dark:text-gray-100"
         }`}
       >
         {phrase.text}
-      </span>
+      </p>
     </div>
   );
 }

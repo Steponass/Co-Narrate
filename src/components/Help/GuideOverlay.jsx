@@ -1,123 +1,252 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { guideSteps } from "./GuideSteps";
 
-export default function GuideOverlay({ onClose }) {
+export default function GuideOverlay({ onClose, isOpen = true }) {
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(false);
   const [highlights, setHighlights] = useState([]);
+  const previousFocusRef = useRef(null);
+  const modalRef = useRef(null);
 
+  // Store current step data
+  const currentStep = useMemo(() => guideSteps[step], [step]);
+
+  // Animation timing
   useEffect(() => {
-    // Trigger animation after mount
-    setTimeout(() => setVisible(true), 10);
-    return () => setVisible(false);
-  }, []);
-
-  const nextStep = () => {
-    if (step < guideSteps.length - 1) setStep(step + 1);
-    else onClose();
-  };
-
-  const prevStep = () => {
-    if (step > 0) setStep(step - 1);
-  };
-
-  // Support multiple selectors (array or string) to highlight more than 1 item (not currently used, but hey, ya never know)
-  const selectors = guideSteps[step].selector
-    ? Array.isArray(guideSteps[step].selector)
-      ? guideSteps[step].selector
-      : [guideSteps[step].selector]
-    : [];
-
-  // Function to recalculate highlights
-  const recalculateHighlights = useCallback(() => {
-    const newHighlights = selectors
-      .map((sel) => document.querySelector(sel))
-      .filter(Boolean)
-      .map((target) => {
-        const rect = target.getBoundingClientRect();
-        return {
-          position: "fixed",
-          top: rect.top - 8,
-          left: rect.left - 8,
-          width: rect.width + 16,
-          height: rect.height + 16,
-          border: "3px solid #fb923c",
-          borderRadius: "8px",
-          pointerEvents: "none",
-          zIndex: 50,
-          boxShadow: "0 0 0 9999px rgba(0,0,0,0.5)",
-          transition: "all 0.3s",
-        };
-      });
-    setHighlights(newHighlights);
-  }, [selectors]);
-
-  // Recalculate highlights on step/visible change, scroll, resize
-  useEffect(() => {
-    if (!visible) return;
-    recalculateHighlights();
-    window.addEventListener("scroll", recalculateHighlights, true);
-    window.addEventListener("resize", recalculateHighlights);
+    if (!isOpen) return;
+    
+    // Store previously focused element
+    previousFocusRef.current = document.activeElement;
+    
+    // Start animation
+    const timer = setTimeout(() => setVisible(true), 10);
+    
     return () => {
-      window.removeEventListener("scroll", recalculateHighlights, true);
-      window.removeEventListener("resize", recalculateHighlights);
+      clearTimeout(timer);
+      setVisible(false);
+      // Restore focus when closing
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+      }
     };
-  }, [recalculateHighlights, step, visible]);
+  }, [isOpen]);
 
+  // Navigation functions
+  const nextStep = useCallback(() => {
+    if (step < guideSteps.length - 1) {
+      setStep(prev => prev + 1);
+    } else {
+      onClose();
+    }
+  }, [step, onClose]);
+
+  const prevStep = useCallback(() => {
+    if (step > 0) {
+      setStep(prev => prev - 1);
+    }
+  }, [step]);
+
+  // Keyboard navigation
   useEffect(() => {
     if (!visible) return;
-    selectors.forEach((sel) => {
-      const el = document.querySelector(sel);
-      if (el) {
-        el.scrollIntoView({
+
+    const handleKeyDown = (e) => {
+      switch (e.key) {
+        case 'Escape':
+          onClose();
+          break;
+        case 'ArrowRight':
+          if (step < guideSteps.length - 1) {
+            e.preventDefault();
+            nextStep();
+          }
+          break;
+        case 'ArrowLeft':
+          if (step > 0) {
+            e.preventDefault();
+            prevStep();
+          }
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [visible, step, nextStep, prevStep, onClose]);
+
+  // Focus trap
+  useEffect(() => {
+    if (!visible || !modalRef.current) return;
+
+    const focusableElements = modalRef.current.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    const handleTab = (e) => {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement?.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement?.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleTab);
+    firstElement?.focus();
+
+    return () => document.removeEventListener('keydown', handleTab);
+  }, [visible, step]);
+
+  // Calculate highlights for current step
+  const recalculateHighlights = useCallback(() => {
+    if (!currentStep?.selector) {
+      setHighlights([]);
+      return;
+    }
+
+    try {
+      const element = document.querySelector(currentStep.selector);
+      if (!element) {
+        setHighlights([]);
+        return;
+      }
+
+      const rect = element.getBoundingClientRect();
+      const highlight = {
+        position: "fixed",
+        top: rect.top - 8,
+        left: rect.left - 8,
+        width: rect.width + 16,
+        height: rect.height + 16,
+        border: "3px solid #fb923c",
+        borderRadius: "8px",
+        pointerEvents: "none",
+        zIndex: 50,
+        boxShadow: "0 0 0 9999px rgba(0,0,0,0.5)",
+        transition: "all 0.3s ease-in-out",
+      };
+
+      setHighlights([highlight]);
+    } catch (error) {
+      console.warn('Error calculating highlights:', error);
+      setHighlights([]);
+    }
+  }, [currentStep]);
+
+  // Update highlights when step changes or on scroll/resize
+  useEffect(() => {
+    if (!visible) return;
+
+    recalculateHighlights();
+
+    // Throttle scroll/resize handlers for performance
+    let timeoutId;
+    const throttledRecalculate = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(recalculateHighlights, 16); // ~60fps
+    };
+
+    window.addEventListener("scroll", throttledRecalculate, { passive: true });
+    window.addEventListener("resize", throttledRecalculate, { passive: true });
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("scroll", throttledRecalculate);
+      window.removeEventListener("resize", throttledRecalculate);
+    };
+  }, [visible, recalculateHighlights]);
+
+  // Scroll to highlighted element
+  useEffect(() => {
+    if (!visible || !currentStep?.selector) return;
+
+    try {
+      const element = document.querySelector(currentStep.selector);
+      if (element) {
+        element.scrollIntoView({
           behavior: "smooth",
           block: "center",
           inline: "center",
         });
       }
-    });
-    // Optionally, you can add a small delay if the highlight overlay needs to animate in first
-  }, [selectors, step, visible]);
+    } catch (error) {
+      console.warn('Error scrolling to element:', error);
+    }
+  }, [visible, currentStep]);
+
+  // Don't render if not open
+  if (!isOpen) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-40 flex items-center justify-center transition-transform duration-300 ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+      className={`fixed inset-0 z-40 flex items-center justify-center transition-all duration-300 ${
+        visible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
-      style={{ pointerEvents: "auto" }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="guide-title"
+      aria-describedby="guide-description"
     >
+      {/* Highlight overlays */}
       {highlights.map((style, idx) => (
-        <div key={idx} style={style} />
+        <div key={idx} style={style} aria-hidden="true" />
       ))}
-      <div className="min-h-40 min-w-90 max-w-md flex flex-col justify-between flex-nowrap fixed bottom-12 left-1/2 -translate-x-1/2 z-50 bg-neutral-100 dark:bg-gray-800 p-4 rounded-lg shadow-xl">
-                <div>
-                <span className="cursor-pointer float-right text-lg font-bold" 
-            onClick={onClose}>
-              &times;</span>
-              </div>
-        <div>
-          <p>{guideSteps[step].message}</p>
-        </div>
-        <div className="flex gap-4">
+
+      {/* Modal content */}
+      <div
+        ref={modalRef}
+        className={`min-h-40 min-w-80 max-w-md | flex flex-col justify-between fixed bottom-12 left-1/2 transform transition-all duration-300 ${
+          visible ? "-translate-x-1/2 translate-y-0" : "-translate-x-1/2 translate-y-full"
+        } z-50 bg-white dark:bg-gray-800 p-6 rounded-md shadow-xl border border-gray-200 dark:border-gray-700`}
+      >
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            Step {step + 1} of {guideSteps.length}
+          </div>
           <button
-            className="mt-4 px-4 py-2 bg-emerald-700 text-white rounded font-semibold disabled:opacity-50"
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-xl font-bold p-1 -m-1 cursor-pointer"
+            aria-label="Close guide"
+          >
+            ×
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 mb-8">
+          <p id="guide-description" className="text-gray-900 dark:text-gray-100">
+            {currentStep?.message || "No message available"}
+          </p>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex justify-between gap-4">
+          <button
             onClick={prevStep}
             disabled={step === 0}
+            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed text-gray-800 rounded font-medium transition-colors cursor-pointer"
           >
             Previous
           </button>
           <button
-            className="mt-4 px-6 py-2 bg-emerald-700 text-white rounded font-semibold"
             onClick={nextStep}
+            className="px-6 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded font-medium transition-colors cursor-pointer"
           >
             {step < guideSteps.length - 1 ? "Next" : "Finish"}
           </button>
         </div>
       </div>
-      <div
-        className="fixed inset-0 z-30"
-        style={{ background: "rgba(0,0,0,0.15)" }}
-      />
     </div>
   );
 }

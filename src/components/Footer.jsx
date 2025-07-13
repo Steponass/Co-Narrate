@@ -4,7 +4,7 @@ export default function Footer({ setShowGuide }) {
       <div>
         {" "}
         <button
-          className="px-2 py-1 bg-orange-400 hover:brightness-110 text-white rounded shadow"
+          className="px-4 py-1.5 bg-blue-800 hover:bg-blue-700 text-white rounded shadow"
           onClick={() => setShowGuide(true)}
         >
           Show Guide

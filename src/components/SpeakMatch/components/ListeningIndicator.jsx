@@ -3,7 +3,7 @@
 export default function ListeningIndicator({ listening }) {
   return (
     <span
-      className={`w-6 h-6 inline-block ${
+      className={`w-8 h-8 inline-block ${
         listening ? "text-emerald-700 animate-pulse-slow" : "text-gray-600"
       }`}
       title={listening ? "Listening" : "Not listening"}

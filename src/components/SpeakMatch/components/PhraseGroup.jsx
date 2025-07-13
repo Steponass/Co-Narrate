@@ -9,9 +9,9 @@ export default function PhraseGroup({
   onPhraseToggle,
 }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3">
       <div className="flex items-center">
-        <span className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide phrase_function_vertical">
+        <span className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide phrase_function_vertical">
           {functionName}
         </span>
       </div>
