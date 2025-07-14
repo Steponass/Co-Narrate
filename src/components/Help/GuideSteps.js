@@ -8,7 +8,7 @@ export const guideSteps = [
   },
   {
     selector: "#load_images_btn",
-    message: "Select this button to load 9 random images",
+    message: "Select this button to load 8-9 random images",
   },
   {
     selector: "#story_starters",

@@ -1,6 +1,6 @@
 export default function Footer({ setShowGuide }) {
   return (
-    <footer className="w-full py-2 pl-7 pr-4 bg-neutral-100  dark:bg-gray-900 shadow | flex items-center justify-between">
+    <footer className="w-full py-2 pl-4 md:pl-7 pr-4 bg-neutral-100  dark:bg-gray-900 shadow | flex items-center justify-between">
       <div>
         {" "}
         <button
