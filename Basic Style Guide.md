@@ -1,18 +1,12 @@
+# Basic style guide
 
-<!-- Buttons -->
+...
 
-rounded (=4px)
-font-medium (only for first time visit / guide dialogs)
-bg-emerald-700 
-hover:bg-emerald-600
-transition-colors
-cursor-pointer
+That's it!
 
+But really, I tried to make it consistent.
 
-<!-- Image Cell -->
-
-transition
-image ? "hover:brightness-70" : "hover:brightness-98
-
-<!-- Theme Toggle SVG color -->
-text-blue-700 dark:text-yellow-300
+- Accent color:    emerald-700 oklch(50.8% 0.118 165.612);
+- Secondary color: blue-700 oklch(48.8% 0.243 264.376);
+- Font:            System/UI, regular weight (medium for buttons in first time visit & guide dialogs);
+- Border-radius:   4px;
