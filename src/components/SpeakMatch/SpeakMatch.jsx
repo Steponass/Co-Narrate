@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -10,6 +10,7 @@ import PhrasesDisplay from "./components/PhrasesDisplay";
 import SpeechControls from "./components/SpeechControls";
 import ResetDialog from "./ResetDialog";
 import CategorySelector from "./components/CategorySelector";
+import ConfettiOverlay from "../ConfettiOverlay";
 
 export default function SpeakMatch() {
   const [selectedId, setSelectedId] = useState(PhrasesArray[0]?.id || "");
@@ -23,6 +24,7 @@ export default function SpeakMatch() {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
   const [ResetDialogOpen, setResetDialogOpen] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Get selected item and its phrases
   const selectedItem = PhrasesArray.find((item) => item.id === selectedId);
@@ -36,6 +38,12 @@ export default function SpeakMatch() {
 
   // Match phrases in transcript with contraction handling
   usePhraseMatcher(transcript, allPhrasesMap, setMatchedByCategory);
+
+  useEffect(() => {
+    if (phrases.length === 12 && matchedByCategory[selectedId]?.length === 12) {
+      setShowConfetti(true);
+    }
+  }, [matchedByCategory, selectedId, phrases.length]);
 
   if (!browserSupportsSpeechRecognition) {
     return (
@@ -83,11 +91,11 @@ export default function SpeakMatch() {
 
   return (
     <div className="basis-auto grow-0 sm:mr-0 sm:ml-auto min-w-0 flex flex-col gap-3 p-3 dark:bg-gray-800 rounded sm:gap-4">
-
       <CategorySelector
         selectedId={selectedId}
         setSelectedId={setSelectedId}
-        resetTranscript={resetTranscript} />
+        resetTranscript={resetTranscript}
+      />
 
       <SpeechControls
         language={language}
@@ -114,6 +122,11 @@ export default function SpeakMatch() {
             };
           });
         }}
+      />
+
+      <ConfettiOverlay
+        show={showConfetti}
+        onDone={() => setShowConfetti(false)}
       />
 
       <ResetDialog
