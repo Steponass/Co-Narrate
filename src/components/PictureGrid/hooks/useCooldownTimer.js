@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export function useCooldownTimer(initialTime = 15) {
+export function useCooldownTimer(initialTime = 20) {
   const [cooldownActive, setCooldownActive] = useState(false);
   const [cooldownTime, setCooldownTime] = useState(initialTime);
   const timerRef = useRef(null);
