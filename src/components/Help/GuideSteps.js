@@ -8,7 +8,7 @@ export const guideSteps = [
   },
   {
     selector: "#load_images_btn",
-    message: "Select this button to load 8-9 random images",
+    message: "Select this button to load 8-9 random images. You can load new images every 20 seconds",
   },
   {
     selector: "#story_starters",
@@ -16,7 +16,7 @@ export const guideSteps = [
   },
   {
     selector: "#speak-match",
-    message: "Take a minute to get to know this tool. It's… awesome! 😲",
+    message: "Take a minute to get to know this tool. This is where the magic happens!",
   },
   {
     selector: "#category_selector",
@@ -32,7 +32,7 @@ export const guideSteps = [
   },
   {
     selector: "#phrases_display",
-    message: "Now your microphone will listen to you speak. If you use a listed phrase, it should get marked in green.",
+    message: "Now your microphone will listen to you speak. If you use a listed phrase, it should get marked in green",
   },
 
   {
