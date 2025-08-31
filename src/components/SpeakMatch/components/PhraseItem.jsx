@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function PhraseItem({
   phrase,
   selectedId,
@@ -21,7 +19,7 @@ export default function PhraseItem({
       <p
         className={` leading-6 text-base xl:text-lg transition ${
           isMatched
-            ? "line-through text-emerald-700 dark:text-emerald-600"
+            ? " text-emerald-700 dark:text-emerald-600"
             : "text-gray-900 dark:text-gray-100"
         }`}
       >

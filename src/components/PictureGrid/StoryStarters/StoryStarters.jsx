@@ -23,7 +23,7 @@ function StoryStarters() {
           </button>
           <div
             className="
-                  p-2 bg-gray-100 dark:bg-gray-700 
+                  min-w-32 p-2 bg-gray-100 dark:bg-gray-700 
                   text-gray-900 dark:text-gray-100 
                   rounded text-sm sm:text-base"
           >
