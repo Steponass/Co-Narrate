@@ -4,8 +4,8 @@ export default function FirstVisitDialog({ setShowGuide, onClose }) {
       <dialog open >
         <div className="z-10 max-h-fit max-w-max fixed inset-0 w-11/12 m-auto p-4 bg-neutral-50 dark:bg-gray-800 rounded-md shadow-2xl sm:p-6">
           <div className="pb-4">
-            <h1>Hey 👋</h1>
-            <p>It might be your first or second time here.
+            <h1 className="text-gray-900 dark:text-gray-100">Hey 👋</h1>
+            <p className="text-gray-900 dark:text-gray-100">It might be your first or second time here.
               <br />
               Want to see a quick guide?
             </p>

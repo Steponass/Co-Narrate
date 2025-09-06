@@ -7,9 +7,11 @@ import VisitTracker from "./components/VisitTracker";
 import Footer from "./components/Footer";
 import GuideOverlay from "./components/Help/GuideOverlay";
 import { useState } from "react";
+import { isAndroidDevice } from "./utils/deviceDetection";
 
 function App() {
   const [showGuide, setShowGuide] = useState(false);
+  const isAndroid = isAndroidDevice();
 
   return (
     <ThemeProvider>
@@ -23,7 +25,13 @@ function App() {
           </div>
           <div id="speak-match" className="basis-sm grow-1 | md:w-full md:max-w-fit md:mr-0 md:ml-auto shadow">
             <h2 className="section-heading px-3">Speak & Match</h2>
-            <SpeakMatch />
+            {isAndroid ? (
+              <p className="px-3 py-4 text-center text-gray-600 dark:text-gray-400">
+                Sorry, but this feature doesn't work on Android phones 😿
+              </p>
+            ) : (
+              <SpeakMatch />
+            )}
           </div>
         </main>
         <Footer setShowGuide={setShowGuide}/>
