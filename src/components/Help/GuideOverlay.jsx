@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { guideSteps } from "./GuideSteps";
+import { guideSteps, androidGuideSteps } from "./GuideSteps";
+import { isAndroidDevice } from "../../utils/deviceDetection";
 
 export default function GuideOverlay({ onClose, isOpen = true }) {
   const [step, setStep] = useState(0);
@@ -8,14 +9,15 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
   const previousFocusRef = useRef(null);
   const modalRef = useRef(null);
 
-  // Store current step data
-  const currentStep = useMemo(() => guideSteps[step], [step]);
+  // Determine which guide steps to use based on device
+  const isAndroid = isAndroidDevice();
+  const currentGuideSteps = isAndroid ? androidGuideSteps : guideSteps;
 
-  // Animation timing
+  const currentStep = useMemo(() => currentGuideSteps[step], [currentGuideSteps, step]);
+
   useEffect(() => {
     if (!isOpen) return;
     
-    // Store previously focused element
     previousFocusRef.current = document.activeElement;
     
     // Start animation
@@ -31,14 +33,13 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
     };
   }, [isOpen]);
 
-  // Navigation functions
   const nextStep = useCallback(() => {
-    if (step < guideSteps.length - 1) {
+    if (step < currentGuideSteps.length - 1) {
       setStep(prev => prev + 1);
     } else {
       onClose();
     }
-  }, [step, onClose]);
+  }, [step, currentGuideSteps.length, onClose]);
 
   const prevStep = useCallback(() => {
     if (step > 0) {
@@ -46,7 +47,6 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
     }
   }, [step]);
 
-  // Keyboard navigation
   useEffect(() => {
     if (!visible) return;
 
@@ -56,7 +56,7 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
           onClose();
           break;
         case 'ArrowRight':
-          if (step < guideSteps.length - 1) {
+          if (step < currentGuideSteps.length - 1) {
             e.preventDefault();
             nextStep();
           }
@@ -143,13 +143,13 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
     }
   }, [currentStep]);
 
-  // Update highlights when step changes or on scroll/resize
+
   useEffect(() => {
     if (!visible) return;
 
     recalculateHighlights();
 
-    // Throttle scroll/resize handlers for performance
+    // Throttle scroll/resize handlers for better UX and performance
     let timeoutId;
     const throttledRecalculate = () => {
       clearTimeout(timeoutId);
@@ -184,7 +184,7 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
     }
   }, [visible, currentStep]);
 
-  // Don't render if not open
+
   if (!isOpen) return null;
 
   return (
@@ -197,7 +197,7 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
       aria-labelledby="guide-title"
       aria-describedby="guide-description"
     >
-      {/* Highlight overlays */}
+
       {highlights.map((style, idx) => (
         <div key={idx} style={style} aria-hidden="true" />
       ))}
@@ -212,7 +212,7 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div className="text-sm text-gray-500 dark:text-gray-400">
-            Step {step + 1} of {guideSteps.length}
+            Step {step + 1} of {currentGuideSteps.length}
           </div>
           <button
             onClick={onClose}
@@ -243,7 +243,7 @@ export default function GuideOverlay({ onClose, isOpen = true }) {
             onClick={nextStep}
             className="px-6 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded font-medium transition-colors cursor-pointer"
           >
-            {step < guideSteps.length - 1 ? "Next" : "Finish"}
+            {step < currentGuideSteps.length - 1 ? "Next" : "Finish"}
           </button>
         </div>
       </div>

@@ -52,3 +52,24 @@ export const guideSteps = [
     message: "…or try to speak clearer 😁. Have fun!",
   },
 ];
+
+export const androidGuideSteps = [
+  {
+    message: "This is a tool for a storytelling activity for English-language practice. Learners see 9 random images and try to tell a story using chosen target language",
+  },
+  {
+    selector: "#picture-grid",
+    message: "Story Images section, where you view and select images for your story",
+  },
+  {
+    selector: "#load_images_btn",
+    message: "Select this button to load 8-9 random images. You can load new images every 20 seconds",
+  },
+  {
+    selector: "#story_starters",
+    message: "Need inspiration to start a story? Select this button",
+  },
+  {
+    message: "That's it! Unfortunately, speech recognition feature doesn't work on Android devices. You can use it on iOS or Windows-based browsers!",
+  },
+];
