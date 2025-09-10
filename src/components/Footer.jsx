@@ -12,7 +12,7 @@ export default function Footer({ setShowGuide }) {
       </div>
       <p className="">
         Designed & built by{" "}
-          <a className="underline hover:decoration-0" href="https://www.linkedin.com/in/steponasd/">S.D.</a>
+          <a className="underline hover:decoration-0" href="https://github.com/Steponass">S.D.</a>
       </p>
     </footer>
   );

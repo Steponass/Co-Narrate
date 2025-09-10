@@ -16,7 +16,7 @@ export default function SpeechControls({
     <div >
       <div className="flex gap-2 justify-between flex-row sm:items-center sm:gap-3">
         <LanguageSelector value={language} onChange={onLanguageChange} />
-        <MicrophoneSelector onDeviceChange={onDeviceChange} />
+        <MicrophoneSelector onDeviceChange={onDeviceChange} listening={listening} />
       </div>
 
       <div className="flex gap-3 pt-4 flex-row items-center ">

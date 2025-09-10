@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
 
-export default function MicrophoneSelector({ onDeviceChange }) {
+export default function MicrophoneSelector({ onDeviceChange, listening }) {
   const [devices, setDevices] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasPermission, setHasPermission] = useState(false);
 
   useEffect(() => {
     const getAudioDevices = async () => {
+      if (!listening && !hasPermission) {
+        return;
+      }
+
+      setIsLoading(true);
       try {
-        // Request microphone permission to get device list
+        // Request microphone permission to get device list only when listening starts
         await navigator.mediaDevices.getUserMedia({ audio: true });
+        setHasPermission(true);
 
         // Get all audio input devices
         const audioDevices = await navigator.mediaDevices.enumerateDevices();
@@ -28,8 +35,10 @@ export default function MicrophoneSelector({ onDeviceChange }) {
 
     getAudioDevices();
 
-    // Listen for device changes
+    // Listen for device changes only if we have permission
     const handleDeviceChange = async () => {
+      if (!hasPermission) return;
+      
       const audioDevices = await navigator.mediaDevices.enumerateDevices();
       const inputDevices = audioDevices.filter(
         (device) => device.kind === "audioinput"
@@ -37,15 +46,19 @@ export default function MicrophoneSelector({ onDeviceChange }) {
       setDevices(inputDevices);
     };
 
-    navigator.mediaDevices.addEventListener("devicechange", handleDeviceChange);
+    if (hasPermission) {
+      navigator.mediaDevices.addEventListener("devicechange", handleDeviceChange);
+    }
 
     return () => {
-      navigator.mediaDevices.removeEventListener(
-        "devicechange",
-        handleDeviceChange
-      );
+      if (hasPermission) {
+        navigator.mediaDevices.removeEventListener(
+          "devicechange",
+          handleDeviceChange
+        );
+      }
     };
-  }, []);
+  }, [listening, hasPermission]);
 
   const handleDeviceSelect = (deviceId) => {
     setSelectedDevice(deviceId);
@@ -59,6 +72,17 @@ export default function MicrophoneSelector({ onDeviceChange }) {
         className="p-2 border rounded bg-neutral-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-sm text-gray-500 dark:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
       >
         <option>Loading...</option>
+      </select>
+    );
+  }
+
+  if (!hasPermission) {
+    return (
+      <select
+        disabled
+        className="p-2 border rounded bg-neutral-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-sm text-gray-500 dark:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+      >
+        <option>Click "Start Listening" to select microphone</option>
       </select>
     );
   }
