@@ -82,7 +82,7 @@ export default function MicrophoneSelector({ onDeviceChange, listening }) {
         disabled
         className="p-2 border rounded bg-neutral-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-sm text-gray-500 dark:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
       >
-        <option>Click "Start Listening" to select microphone</option>
+        <option>Start Listening to select microphone</option>
       </select>
     );
   }
